@@ -2,7 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom Scrollbar for Chrome/Safari/Edge */
+/* 1. Define the custom font */
+@font-face {
+  font-family: 'IBM PS-55'; 
+  /* Relative path from src/index.css to src/assets/fonts/... */
+  src: url('./assets/fonts/Web437_IBM_PS-55_re.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 2. Global Defaults */
+:root {
+  font-family: 'IBM PS-55', monospace !important;
+  /* INCREASED BASE SIZE:
+     Tailwind uses 'rem' units for text sizing (text-sm, text-base, etc.).
+     'rem' is relative to the root (html) font size.
+     Default is 16px. Setting it to 18px or 20px scales the ENTIRE UI up.
+  */
+  font-size: 18px; /* Try 18px, 19px, or 20px if you want it even bigger */
+  
+  /* Pixel font optimization */
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale; 
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  color: white;
+  font-family: 'IBM PS-55', monospace !important;
+  /* Removed font-size here, as it's now controlled by :root for proper rem scaling */
+}
+
+/* 3. Force Tailwind Utilities to use Custom Font */
+.font-sans, .font-mono, .font-serif {
+  font-family: 'IBM PS-55', monospace !important;
+}
+
+/* 4. Apply to Form Elements */
+button, input, textarea {
+  font-family: 'IBM PS-55', monospace !important;
+}
+
+/* 5. EXCLUDE ASCII Art Containers */
+pre, code {
+  font-family: monospace !important;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -16,9 +64,54 @@
   background: #444;
 }
 
-/* Global Reset */
-body {
-  margin: 0;
-  background-color: black;
-  color: white;
+@keyframes star-flicker {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.star-flicker {
+  animation: star-flicker 2s ease-in-out infinite;
+}
+
+@keyframes comet-trail {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(200px, 200px);
+    opacity: 0;
+  }
+}
+
+.comet-trail {
+  animation: comet-trail 3s linear forwards;
+}
+
+@keyframes post-float {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.post-node {
+  animation: post-float 0.6s ease-out;
+}
+
+.hermetic-divider {
+  font-family: monospace;
+  color: #3f3f46;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.writing-mode-vertical-rl {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
 }
